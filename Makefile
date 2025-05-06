@@ -3,14 +3,13 @@ all: format clean pre test
 
 .PHONY: format
 format:
-	isort --profile black --filter-files .
-	black .
+	ruff check --select I --fix .
+	ruff format .
 
 .PHONY: test
 test:
 	coverage run --source src -m pytest -vv .
 	coverage report -m
-	flake8
 
 .PHONY: pre
 pre:
@@ -18,7 +17,7 @@ pre:
 
 .PHONY: debug
 debug:
-	pytest -vv tests/test_something.py
+	pytest -vv tests/data/test_tic_tac_toe.py
 
 .PHONY: clean
 clean:
